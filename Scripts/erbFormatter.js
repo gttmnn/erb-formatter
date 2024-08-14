@@ -1,10 +1,10 @@
 const erbFormatter = (inputText) => {
   const getConfigPath = () => {
     const workspaceConfigPath = nova.workspace.config.get(
-      "com.gttmnn.erb-formatter.executablePath"
+      "gttmnn.erb-formatter.executablePath"
     );
     const globalConfigPath = nova.config.get(
-      "com.gttmnn.erb-formatter.executablePath"
+      "gttmnn.erb-formatter.executablePath"
     );
     return workspaceConfigPath || globalConfigPath;
   };
@@ -35,7 +35,7 @@ const erbFormatter = (inputText) => {
     }
 
     const printWidth =
-      nova.config.get("com.gttmnn.erb-formatter.printWidth") || "80";
+      nova.config.get("gttmnn.erb-formatter.printWidth") || "80";
 
     try {
       const process = setUpProcess(configPath, printWidth);

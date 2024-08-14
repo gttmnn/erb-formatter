@@ -33,11 +33,11 @@ exports.activate = async function () {
 
   const shouldFormatOnSave = () => {
     const workspaceFormatOnSave = nova.workspace.config.get(
-      "com.gttmnn.erb-formatter.formatOnSave",
+      "gttmnn.erb-formatter.formatOnSave",
       "string"
     );
     const globalFormatOnSave = nova.config.get(
-      "com.gttmnn.erb-formatter.formatOnSave",
+      "gttmnn.erb-formatter.formatOnSave",
       "boolean"
     );
 

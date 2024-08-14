@@ -1,5 +1,5 @@
 {
-  "identifier": "com.gttmnn.erb-formatter",
+  "identifier": "gttmnn.erb-formatter",
   "name": "ERB::Formatter",
   "organization": "Gilbert Guttmann",
   "description": "Format ERB files using ERB::Formatter",
@@ -27,21 +27,21 @@
   },
   "config": [
     {
-      "key": "com.gttmnn.erb-formatter.executablePath",
+      "key": "gttmnn.erb-formatter.executablePath",
       "title": "Executable Path",
       "type": "path",
       "default": "",
       "description": "Path to the ERB::Formatter executable. Can be overridden in the project settings."
     },
     {
-      "key": "com.gttmnn.erb-formatter.printWidth",
+      "key": "gttmnn.erb-formatter.printWidth",
       "title": "Print Width",
       "type": "number",
       "default": 80,
       "description": "Customize the line length where the formatter will start breaking lines."
     },
     {
-      "key": "com.gttmnn.erb-formatter.formatOnSave",
+      "key": "gttmnn.erb-formatter.formatOnSave",
       "title": "Format on Save",
       "description": "Can be overridden in the project settings.",
       "type": "boolean",
@@ -50,14 +50,14 @@
   ],
   "configWorkspace": [
     {
-      "key": "com.gttmnn.erb-formatter.executablePath",
+      "key": "gttmnn.erb-formatter.executablePath",
       "title": "Executable Path",
       "type": "path",
       "default": "",
       "description": "Path to the ERB::Formatter executable for this workspace."
     },
     {
-      "key": "com.gttmnn.erb-formatter.formatOnSave",
+      "key": "gttmnn.erb-formatter.formatOnSave",
       "title": "Format on Save",
       "type": "enum",
       "values": [
