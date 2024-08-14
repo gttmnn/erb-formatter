@@ -1,6 +1,6 @@
 {
   "identifier": "com.gttmnn.erb-formatter",
-  "name": "ERB Formatter",
+  "name": "ERB::Formatter",
   "organization": "Gilbert Guttmann",
   "description": "Format ERB files using ERB::Formatter",
   "version": "1.0",
@@ -20,7 +20,6 @@
       {
         "title": "Format ERB",
         "command": "erb-formatter.format",
-        "shortcut": "cmd-opt-shift-e",
         "when": "editorHasFocus",
         "filters": {
           "syntaxes": ["html+erb"]
@@ -30,8 +29,8 @@
   },
   "config": [
     {
-      "key": "com.gttmnn.erb-formatter.commandPath",
-      "title": "ERB::Formatter Executable Path",
+      "key": "com.gttmnn.erb-formatter.executablePath",
+      "title": "Executable Path",
       "type": "path",
       "default": "",
       "description": "Path to the ERB::Formatter executable. Can be overridden in the project settings."
@@ -41,7 +40,7 @@
       "title": "Print Width",
       "type": "number",
       "default": 80,
-      "description": "Customize the line length where the formatter will start breaking lines. Defaults to 80."
+      "description": "Customize the line length where the formatter will start breaking lines."
     },
     {
       "key": "com.gttmnn.erb-formatter.formatOnSave",
@@ -53,8 +52,8 @@
   ],
   "configWorkspace": [
     {
-      "key": "com.gttmnn.erb-formatter.commandPath",
-      "title": "ERB::Formatter Executable Path",
+      "key": "com.gttmnn.erb-formatter.executablePath",
+      "title": "Executable Path",
       "type": "path",
       "default": "",
       "description": "Path to the ERB::Formatter executable for this workspace."
@@ -68,7 +67,8 @@
         ["enabled", "Enable"],
         ["disabled", "Disable"]
       ],
-      "default": "global"
+      "default": "global",
+      "description": "Configure format on save behavior for this workspace."
     }
   ]
 }
