@@ -9,10 +9,9 @@ exports.activate = async function () {
   const displayError = (message) => {
     console.error(message);
     const request = new NotificationRequest();
+    request.title = "ERB::Formatter Error";
     request.body = message;
-    nova.notifications
-      .add(request)
-      .catch((err) => console.error(err, err.stack));
+    nova.notifications.add(request).catch((err) => console.error(err, err.stack));
   };
 
   const replaceDocument = (editor, text) => {
@@ -23,9 +22,7 @@ exports.activate = async function () {
   };
 
   const formatDocument = (editor) => {
-    const documentText = editor.document.getTextInRange(
-      new Range(0, editor.document.length)
-    );
+    const documentText = editor.document.getTextInRange(new Range(0, editor.document.length));
     return erbFormatter(documentText)
       .then((formattedText) => replaceDocument(editor, formattedText))
       .catch(displayError);
@@ -36,10 +33,7 @@ exports.activate = async function () {
       "gttmnn.erb-formatter.formatOnSave",
       "string"
     );
-    const globalFormatOnSave = nova.config.get(
-      "gttmnn.erb-formatter.formatOnSave",
-      "boolean"
-    );
+    const globalFormatOnSave = nova.config.get("gttmnn.erb-formatter.formatOnSave", "boolean");
 
     switch (workspaceFormatOnSave) {
       case "enabled":
