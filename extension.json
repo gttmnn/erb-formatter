@@ -1,0 +1,74 @@
+{
+  "identifier": "com.gttmnn.erb-formatter",
+  "name": "ERB Formatter",
+  "organization": "Gilbert Guttmann",
+  "description": "Format ERB files using ERB::Formatter",
+  "version": "1.0",
+  "categories": ["commands", "formatters"],
+  "repository": "https://github.com/gttmnn/erb-formatter.novaextension",
+  "bugs": "https://github.com/gttmnn/erb-formatter.novaextension/issues",
+  "license": "MIT",
+  "main": "main.js",
+  "activationEvents": [
+    "onLanguage:html+erb"
+  ],
+  "entitlements": {
+    "process": true
+  },
+  "commands": {
+    "editor": [
+      {
+        "title": "Format ERB",
+        "command": "erb-formatter.format",
+        "shortcut": "cmd-opt-shift-e",
+        "when": "editorHasFocus",
+        "filters": {
+          "syntaxes": ["html+erb"]
+        }
+      }
+    ]
+  },
+  "config": [
+    {
+      "key": "com.gttmnn.erb-formatter.commandPath",
+      "title": "ERB::Formatter Executable Path",
+      "type": "path",
+      "default": "",
+      "description": "Path to the ERB::Formatter executable. Can be overridden in the project settings."
+    },
+    {
+      "key": "com.gttmnn.erb-formatter.printWidth",
+      "title": "Print Width",
+      "type": "number",
+      "default": 80,
+      "description": "Customize the line length where the formatter will start breaking lines. Defaults to 80."
+    },
+    {
+      "key": "com.gttmnn.erb-formatter.formatOnSave",
+      "title": "Format on Save",
+      "description": "Can be overridden in the project settings.",
+      "type": "boolean",
+      "default": false
+    }
+  ],
+  "configWorkspace": [
+    {
+      "key": "com.gttmnn.erb-formatter.commandPath",
+      "title": "ERB::Formatter Executable Path",
+      "type": "path",
+      "default": "",
+      "description": "Path to the ERB::Formatter executable for this workspace."
+    },
+    {
+      "key": "com.gttmnn.erb-formatter.formatOnSave",
+      "title": "Format on Save",
+      "type": "enum",
+      "values": [
+        ["global", "Global default"],
+        ["enabled", "Enable"],
+        ["disabled", "Disable"]
+      ],
+      "default": "global"
+    }
+  ]
+}
