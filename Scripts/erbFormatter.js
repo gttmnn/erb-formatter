@@ -30,7 +30,7 @@ const erbFormatter = (inputText) => {
 
     if (!configPath || configPath.trim() === "") {
       return reject(
-        "Please provide an ERB::Formatter executable path in the project settings."
+        "Please provide an ERB::Formatter executable path in the settings."
       );
     }
 
