@@ -1,18 +1,16 @@
 const erbFormatter = (inputText) => {
-  const setUpProcess = (reject) => {
-    const workspaceConfigPath = nova.workspace.config.get("com.gttmnn.erb-formatter.executablePath");
-    const globalConfigPath = nova.config.get("com.gttmnn.erb-formatter.executablePath");
-    const configPath = workspaceConfigPath || globalConfigPath;
+  const getConfigPath = () => {
+    const workspaceConfigPath = nova.workspace.config.get(
+      "com.gttmnn.erb-formatter.executablePath"
+    );
+    const globalConfigPath = nova.config.get(
+      "com.gttmnn.erb-formatter.executablePath"
+    );
+    return workspaceConfigPath || globalConfigPath;
+  };
 
-    if (configPath.trim() === "") {
-      const message = "Please provide a ERB::Formatter executable in Project Settings to enable formatting.";
-
-      reject(message);
-    }
-
-    const printWidth = nova.config.get("com.gttmnn.erb-formatter.printWidth");
+  const setUpProcess = (configPath, printWidth) => {
     const executablePath = nova.path.expanduser(configPath);
-
     return new Process(executablePath, {
       args: ["--stdin", "--print-width", printWidth.toString()],
       stdio: "pipe",
@@ -21,22 +19,30 @@ const erbFormatter = (inputText) => {
 
   const writeToStdin = (process, inputText) => {
     const writer = process.stdin.getWriter();
-    writer.ready.then(() => {
+    return writer.ready.then(() => {
       writer.write(inputText);
       writer.close();
     });
   };
 
-  const collectOutputText = (stdout, buffer) => (buffer.stdout += stdout);
-  const collectErrorText = (stderr, buffer) => (buffer.stderr += stderr);
-
   return new Promise((resolve, reject) => {
-    try {
-      const process = setUpProcess(reject);
-      let buffer = { stdout: "", stderr: "" };
+    const configPath = getConfigPath();
 
-      process.onStdout((stdout) => collectOutputText(stdout, buffer));
-      process.onStderr((stderr) => collectErrorText(stderr, buffer));
+    if (!configPath || configPath.trim() === "") {
+      return reject(
+        "Please provide an ERB::Formatter executable path in the project settings."
+      );
+    }
+
+    const printWidth =
+      nova.config.get("com.gttmnn.erb-formatter.printWidth") || "80";
+
+    try {
+      const process = setUpProcess(configPath, printWidth);
+      const buffer = { stdout: "", stderr: "" };
+
+      process.onStdout((stdout) => (buffer.stdout += stdout));
+      process.onStderr((stderr) => (buffer.stderr += stderr));
       process.onDidExit((status) => {
         if (status === 0) {
           resolve(buffer.stdout);
@@ -45,9 +51,9 @@ const erbFormatter = (inputText) => {
         }
       });
 
-      writeToStdin(process, inputText);
-
-      process.start();
+      writeToStdin(process, inputText)
+        .then(() => process.start())
+        .catch(reject);
     } catch (err) {
       reject(err);
     }

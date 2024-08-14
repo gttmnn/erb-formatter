@@ -9,9 +9,7 @@
   "bugs": "https://github.com/gttmnn/erb-formatter.novaextension/issues",
   "license": "MIT",
   "main": "main.js",
-  "activationEvents": [
-    "onLanguage:html+erb"
-  ],
+  "activationEvents": ["onLanguage:html+erb"],
   "entitlements": {
     "process": true
   },
