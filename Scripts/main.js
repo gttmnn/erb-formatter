@@ -16,13 +16,19 @@ exports.activate = async function () {
 
   const replaceDocument = (editor, text) => {
     const documentSpan = new Range(0, editor.document.length);
-    editor.edit((edit) => {
-      edit.replace(documentSpan, text);
-    });
+    const documentText = editor.document.getTextInRange(documentSpan);
+
+    if (documentText != text) {
+      editor.edit((edit) => {
+        edit.replace(documentSpan, text);
+      });
+    }
   };
 
   const formatDocument = (editor) => {
-    const documentText = editor.document.getTextInRange(new Range(0, editor.document.length));
+    const documentSpan = new Range(0, editor.document.length);
+    const documentText = editor.document.getTextInRange(documentSpan);
+
     return erbFormatter(documentText)
       .then((formattedText) => replaceDocument(editor, formattedText))
       .catch(displayError);
